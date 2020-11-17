@@ -1,0 +1,126 @@
+name: CI
+on:
+    pull_request:
+        branches: [develop, main]
+    push:
+        branches: [develop, main]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Cloning repo into VM
+              uses: actions/checkout@v2.3.4
+
+            - name: Use NodeJS
+              uses: actions/setup-node@v1
+              with:
+                  node-version: "12.x"
+              #If you ont like the default node version on ubuntu machine
+
+            - name: Cache node modules
+              #caching and restoring npm packages dependencies
+              uses: actions/cache@v2.1.3
+              with:
+                  path: ~/.npm
+                  # for linux
+                  key: ${{runner.os}}-node-${{hashFiles('**/package-lock.json')}}
+                  restore-key: |
+                      ${{runner.os}}-node-
+
+            - run: npm ci
+              #install dependencies
+
+            - run: npm run format:check
+              #check code formatting with prettier
+
+            - run: npm test -- --coverage
+              #run automated test
+              env:
+                  CI: true
+
+            - name: Upload test coverage artifacts
+              #Upload artifacts
+              uses: actions/upload-artifact@v2
+              with:
+                  name: code-coverage #naming the file
+                  path: coverage
+
+            - name: Build Project
+              if: github.event_name == 'push'
+              run: npm run build
+              #create a build when merge
+
+            - name: Upload build folder
+              if: github.event_name == 'push'
+              #Upload build folder
+              uses: actions/upload-artifact@v2
+              with:
+                  name: build #naming the folder
+                  path: build
+
+            - name: Download artifacts
+              uses: actions/download-artifact@v2
+              #Download artifacts
+
+            - name: Zipping assets
+              # Zip assets to be downloaded in releases
+              if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+              run: |
+                  zip -r build.zip ./build
+                  zip -r coverage.zip ./coverage
+              #zip recursively output.zip ./input-folder
+              #Can continue without this step also
+
+            - name: Create a Semantic Release
+              if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+              #Create a semantic release when it push only to master
+              run: npx semantic-release
+              env:
+                  # GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+                  GITHUB_TOKEN: ${{secrets.CUSTOM_TOKEN}}
+              # NOTE: If we want to trigger another workflow when this step triggers(To send a slack message),
+              # this default GITHUB_TOKEN cannot be used for that. You need to generate a personalized token in github settings
+              # and that token in repo secrets as CUSTOM_TOKEN for that
+
+            - name: Deploy to staging
+              if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+              run: npx surge --project ./build --domain eight-circle.surge.sh
+              env:
+                  SURGE_LOGIN: ${{secrets.SURGE_LOGIN}}
+                  SURGE_TOKEN: ${{secrets.SURGE_TOKEN}}
+                  #To generate a surge token ->> surge token
+
+            - name: Deploy to production
+              if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+              run: npx surge --project ./build --domain gainful-ghost.surge.sh
+              env:
+                  SURGE_LOGIN: ${{secrets.SURGE_LOGIN}}
+                  SURGE_TOKEN: ${{secrets.SURGE_TOKEN}}
+                  #To generate a surge token ->> surge token
+                  #Since these env variables use in 2 steps you can add them in job scope instead of step scope
+
+            - name: Upload codecoverage report into CodeCov
+              # upload codecoverage files into codecov.io
+              if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+              run: npx codecov
+              env:
+                  CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
+
+            - name: Open an issue if a job fails
+              # Create an issue when a failure happen in any workflow while making a pull request
+              # Assigned the same person to the issue, who made the pull request
+              if: failure() && github.event_name == 'pull_request'
+              run: |
+                  curl --request POST \
+                  --url https://api.github.com/repos/${{ github.repository }}/issues \
+                  --header 'authorization: Bearer ${{ secrets.CUSTOM_TOKEN }}' \
+                  --header 'content-type: application/json' \
+                  --data '{
+                    "title": "Automated issue for commit: ${{ github.sha }}",
+                    "body": "This issue was automatically created by the GitHub Action workflow **${{ github.workflow }}**. \n\n The commit hash was: _${{ github.sha }}_.",
+                    "assignees": ["${{github.event.pull_request.user.login}}"]
+                    }'
+              # NOTE: If we want to trigger another workflow when this step triggers(To send a slack message),
+              # this default GITHUB_TOKEN cannot be used for that. You need to generate a personalized token in github settings
+              # and that token in repo secrets as CUSTOM_TOKEN for that

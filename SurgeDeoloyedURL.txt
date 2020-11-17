@@ -1,0 +1,11 @@
+Staging env :
+
+eight-circle.surge.sh
+URL: http://eight-circle.surge.sh/
+
+Use it when you deploy again. Remove the auto generated one and paste this URL
+
+Production env :
+
+gainful-ghost.surge.sh
+URL: http://gainful-ghost.surge.sh/
