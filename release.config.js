@@ -14,7 +14,7 @@
 module.exports = {
     branches: "main",
     repositoryUrl:
-        "https://github.com/mihinduranasinghe/CICD-React-App-Github-Actions",
+        "https://github.com/mihinduranasinghe/CICD-Custom-GitHub-Actions",
     plugins: [
         "@semantic-release/commit-analyzer",
         "@semantic-release/release-notes-generator",
