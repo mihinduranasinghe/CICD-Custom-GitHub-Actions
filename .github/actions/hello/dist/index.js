@@ -9,7 +9,7 @@ const core = __webpack_require__(186);
 const github = __webpack_require__(438);
 
 try {
-    throw new console.error("some error simulating");
+    // throw new console.error("some error simulating");
     const name = core.getInput("who-to-greet");
     console.log(`Hello ${name}`);
 
