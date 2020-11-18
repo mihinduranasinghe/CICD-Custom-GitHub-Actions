@@ -14,7 +14,7 @@ try {
     // console.log(JSON.stringify(github, null, "\t"));
 
     core.startGroup("Logging github object");
-    onsole.log(JSON.stringify(github, null, "\t"));
+    console.log(JSON.stringify(github, null, "\t"));
     core.endGroup();
 
     //More about core package
