@@ -2,7 +2,7 @@ const core = require("@actions/core");
 const github = require("@actions/github");
 
 try {
-    throw new console.error("some error simulating");
+    // throw new console.error("some error simulating");
     const name = core.getInput("who-to-greet");
     console.log(`Hello ${name}`);
 
