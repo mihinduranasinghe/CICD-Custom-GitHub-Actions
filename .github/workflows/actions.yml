@@ -27,6 +27,12 @@ jobs:
             #           mihinduranasinghe2
             #           mihinduranasinghe
 
+            - name: Custom docker action greeting
+              uses: ./.github/actions/hello-docker/
+              id: hellodocker
+              with:
+                  who-to-greet: "World"
+
             - run: |
                   echo "Time: ${{steps.hello.outputs.time}}"
                   echo $HELLO

@@ -1,0 +1,24 @@
+name: Hello World
+# Creating a simple javascript action
+author: Mihindu Ranasinghe
+description: Sample description
+
+inputs:
+    who-to-greet:
+        description: "Who to greet"
+        required: true
+        default: Mihindu
+
+outputs:
+    time:
+        description: "The greeting time"
+
+runs:
+    using: "docker"
+    # image: "docker://YourDockerHubImageName:TagName"
+    # image: "Also It can be a Dockerfile in your folder"
+    image: "Dockerfile"
+    # entrypoint:
+    args:
+        # - inputToArg$1 # This can be added dynamically like below. It will be get as an input to entryppoint.sh
+        - ${{inputs.who-to-greet}}
