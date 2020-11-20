@@ -18,16 +18,16 @@ jobs:
 
             #---------------------------------------
 
-            # - name: issues creating/opening
-            #   uses: ./.github/actions/issue/
-            #   id: issue
-            #   with:
-            #       token: ${{secrets.GITHUB_TOKEN}}
-            #       title: title
-            #       body: body
-            #       assignees: |
-            #           mihinduranasinghe2
-            #           mihinduranasinghe
+            - name: issues creating/opening
+              uses: ./.github/actions/issue/
+              id: issue
+              with:
+                  token: ${{secrets.GITHUB_TOKEN}}
+                  title: title
+                  body: body
+                  assignees: |
+                      mihinduranasinghe2
+                      mihinduranasinghe
 
             - name: Custom docker action greeting
               uses: ./.github/actions/hello-docker/
