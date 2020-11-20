@@ -23,7 +23,9 @@ jobs:
                   token: ${{secrets.GITHUB_TOKEN}}
                   title: title
                   body: body
-                  assignees: ["mihinduranasinghe"]
+                  assignees: |
+                      mihinduranasinghe2
+                      mihinduranasinghe
 
             - run: |
                   echo "Time: ${{steps.hello.outputs.time}}"
