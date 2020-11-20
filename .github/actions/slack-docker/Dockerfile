@@ -1,4 +1,4 @@
-FROM php:7.4-cli
+FROM php:7.4.2
 # This php image dones not have COMPOSER tool installed
 
 #You can run it from dockerhub
@@ -9,7 +9,8 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 # https://hub.docker.com/_/composer
 
 WORKDIR /usr/src/app
-COPY . .
+# COPY . . #this is same to below one
+COPY . /usr/src/app
 # COPY fromcurrentdirectory to workingdirectory (same)
 #Now you can run composer commands
 
@@ -23,4 +24,4 @@ RUN ls /usr/src/app/
 RUN composer install 
 
 
-ENTRYPOINT [ "PHP","/usr/src/app/script.php" ] 
+ENTRYPOINT [ "php","./script.php" ] 
