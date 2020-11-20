@@ -12,26 +12,36 @@ $response = Requests::post($_ENV['INPUT_SLACK_WEBHOOK'],
         'Content-type'=> application/json
     ),
     json_encode(array(
-        'text' => $_ENV['INPUT_MESSAGE']
-    )),
-
-    array(
-        'type' => 'setion',
-        'fields'=> array(
+        array(
             array(
-                'type' => 'mrkdwn',
-                'text' => "*Repository:*\n{$_ENV['GITHUB_REPOSITORY']}",                          
+                'type' => 'setion',
+                    'text'=>array(
+                        'type' => 'mrkdwn',
+                        'text' => $_ENV['INPUT_MESSAGE'],
+                        # $_ENV[you can populate any github object env variables also] 
+                    ),
                 ),
-            array(
-                'type' => 'mrkdwn',
-                'text' => "*Repository:*\n{$_ENV['GITHUB_EVENT_NAME']}",                          
+                array(
+                    'type' => 'setion',
+                    'fields'=> array(
+                        array(
+                            'type' => 'mrkdwn',
+                            'text' => "*Repository:*\n{$_ENV['GITHUB_REPOSITORY']}",                          
+                            ),
+                        array(
+                            'type' => 'mrkdwn',
+                            'text' => "*Repository:*\n{$_ENV['GITHUB_EVENT_NAME']}",                          
+                            ),
+                        array(
+                            'type' => 'mrkdwn',
+                            'text' => "*Repository:*\n{$_ENV['GITHUB_SHA']}",                          
+                            ),             
+                    ),
                 ),
-            array(
-                'type' => 'mrkdwn',
-                'text' => "*Repository:*\n{$_ENV['GITHUB_SHA']}",                          
-                ),             
-        ),
+            )   
+        )
     ),
+
 
 );
 
