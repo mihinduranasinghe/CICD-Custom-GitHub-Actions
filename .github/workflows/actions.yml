@@ -10,11 +10,11 @@ jobs:
             - name: checkout files to vm
               uses: actions/checkout@v2.3.4
 
-            # - name: Custom action 1 greeting
-            #   uses: ./.github/actions/hello/
-            #   id: hello
-            #   with:
-            #       who-to-greet: "World"
+            - name: Custom action 1 greeting
+              uses: ./.github/actions/hello/
+              id: hello
+              with:
+                  who-to-greet: "World"
 
             #---------------------------------------
 
