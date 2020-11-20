@@ -16,7 +16,7 @@ COPY . .
 #Other normal actions can be performed
 RUN apt-get update
 RUN apt-get -y install zip
-
+# RUN ls /usr/src/app/
 
 #Now you can run composer commands
 #like npm install, -> composer install because we successfully setup composer tool inside our container
@@ -24,4 +24,5 @@ RUN composer install
 
 
 
-ENTRYPOINT [ "PHP","/usr/src/app/script.php" ] 
+# ENTRYPOINT [ "PHP","/usr/src/app/script.php" ] 
+ENTRYPOINT [ "PHP","/$GITHUB_WORKSPACE/.github/actions/slack-docker/script.php" ]
