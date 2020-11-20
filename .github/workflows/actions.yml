@@ -18,6 +18,7 @@ jobs:
 
             - name: issues creating/opening
               uses: ./.github/actions/issue/
+              id: issue
               with:
                   token: ${{secrets.GITHUB_TOKEN}}
                   title: title
