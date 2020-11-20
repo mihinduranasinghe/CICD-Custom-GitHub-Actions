@@ -1,4 +1,4 @@
-FROM php:7.4.2
+FROM php:7.4-cli
 # This php image dones not have COMPOSER tool installed
 
 #You can run it from dockerhub
