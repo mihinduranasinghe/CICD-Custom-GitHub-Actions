@@ -49,7 +49,7 @@ echo "::group::Some expendable slack response\n";
 var_dump($response);
 echo "::endgroup::\n";
 
-if(!response -> success){
+if(!$response -> success){
     echo $response->body;
     exit(1);
 }
