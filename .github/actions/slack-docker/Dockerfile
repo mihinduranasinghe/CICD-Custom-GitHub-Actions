@@ -24,4 +24,4 @@ RUN ls /usr/src/app/
 RUN composer install 
 
 
-ENTRYPOINT [ "php","./script.php" ] 
+ENTRYPOINT [ "php","/usr/src/app/script.php" ] 
