@@ -16,6 +16,14 @@ jobs:
               with:
                   who-to-greet: "World"
 
+            - name: issues creating/opening
+              uses: ./.github/actions/issue/
+              with:
+                  token: ${{secrets.GITHUB_TOKEN}}
+                  title: title
+                  body: body
+                  assignees: ["mihinduranasinghe"]
+
             - run: |
                   echo "Time: ${{steps.hello.outputs.time}}"
                   echo $HELLO
