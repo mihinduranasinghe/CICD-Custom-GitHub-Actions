@@ -11,8 +11,29 @@ $response = Requests::post($_ENV['INPUT_SLACK_WEBHOOK'],
     array(
         'Content-type'=> application/json
     ),
+
     json_encode(array(
-        'text' => $_ENV['INPUT_MESSAGE']
+        array(
+            'type' => 'section',
+            'text' => $_ENV['INPUT_MESSAGE']
+        ),
+        array(
+            'type' => 'section',
+            'fields'=> array(
+                array(
+                    'type' => 'mrkdwn',
+                    'text' => "*Repository:*\n{$_ENV['GITHUB_REPOSITORY']}",                          
+                    ),
+                array(
+                    'type' => 'mrkdwn',
+                    'text' => "*Repository:*\n{$_ENV['GITHUB_EVENT_NAME']}",                          
+                    ),
+                array(
+                    'type' => 'mrkdwn',
+                    'text' => "*Repository:*\n{$_ENV['GITHUB_SHA']}",                          
+                    ),             
+    ),
+  ),
     ))
 
 );
@@ -30,10 +51,8 @@ if(!$response -> success){
 
 
 // ----
-
-
     //         array(
-    //             'type' => 'setion',
+    //             'type' => 'section',
     //             'fields'=> array(
     //                 array(
     //                     'type' => 'mrkdwn',
