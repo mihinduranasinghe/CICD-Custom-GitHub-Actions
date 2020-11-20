@@ -12,7 +12,7 @@ $response = Requests::post($_ENV['INPUT_SLACK_WEBHOOK'],
         'Content-type'=> application/json
     ),
     json_encode(array(
-        'text' => 'Some message from php script'
+        'text' => $_ENV['INPUT_MESSAGE']
     ))
 
 );
