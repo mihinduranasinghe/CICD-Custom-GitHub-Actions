@@ -45,4 +45,5 @@ jobs:
               uses: ./.github/actions/slack-docker/
               id: slackdocker
               with:
+                  slack_webhook: ${{secrets.SLACK_WEBHOOK}}
                   message: "Hi Im sent with php docker action"
