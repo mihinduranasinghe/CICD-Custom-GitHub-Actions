@@ -12,41 +12,12 @@ $response = Requests::post($_ENV['INPUT_SLACK_WEBHOOK'],
         'Content-type'=> application/json
     ),
     json_encode(array(
-        array(
-            array(
-                'type' => 'setion',
-                    'text'=>array(
-                        'type' => 'mrkdwn',
-                        'text' => $_ENV['INPUT_MESSAGE'],
-                        # $_ENV[you can populate any github object env variables also] 
-                    ),
-                ),
-                // array(
-                //     'type' => 'setion',
-                //     'fields'=> array(
-                //         array(
-                //             'type' => 'mrkdwn',
-                //             'text' => "*Repository:*\n{$_ENV['GITHUB_REPOSITORY']}",                          
-                //             ),
-                //         array(
-                //             'type' => 'mrkdwn',
-                //             'text' => "*Repository:*\n{$_ENV['GITHUB_EVENT_NAME']}",                          
-                //             ),
-                //         array(
-                //             'type' => 'mrkdwn',
-                //             'text' => "*Repository:*\n{$_ENV['GITHUB_SHA']}",                          
-                //             ),             
-                //     ),
-                // ),
-            )   
-        )
-    ),
-
+        'text' => $_ENV['INPUT_MESSAGE']
+    ))
 
 );
 
 var_dump($response);
-
 echo "::group::Some expendable slack response\n";
 var_dump($response);
 echo "::endgroup::\n";
@@ -58,3 +29,24 @@ if(!$response -> success){
 
 
 
+// ----
+
+
+    //         array(
+    //             'type' => 'setion',
+    //             'fields'=> array(
+    //                 array(
+    //                     'type' => 'mrkdwn',
+    //                     'text' => "*Repository:*\n{$_ENV['GITHUB_REPOSITORY']}",                          
+    //                     ),
+    //                 array(
+    //                     'type' => 'mrkdwn',
+    //                     'text' => "*Repository:*\n{$_ENV['GITHUB_EVENT_NAME']}",                          
+    //                     ),
+    //                 array(
+    //                     'type' => 'mrkdwn',
+    //                     'text' => "*Repository:*\n{$_ENV['GITHUB_SHA']}",                          
+    //                     ),             
+    //     ),
+    //   ),
+  
