@@ -4,6 +4,9 @@ author: MihinduRanasinghe
 description: "Send a Sample slack message"
 
 inputs:
+    slack_webhook:
+        description: "slack webhook"
+        required: true
     message:
         description: "slack message"
         required: true
