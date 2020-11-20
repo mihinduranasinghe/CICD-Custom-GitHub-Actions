@@ -26,7 +26,6 @@ jobs:
                   title: title
                   body: body
                   assignees: |
-                      mihinduranasinghe2
                       mihinduranasinghe
 
             - name: Custom docker action greeting
