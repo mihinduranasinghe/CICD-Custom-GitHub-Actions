@@ -28,6 +28,20 @@ jobs:
                   assignees: |
                       mihinduranasinghe
 
+            # consuming marketplace action which i published to open issue
+
+            - name: Open Github Issue Automate
+              uses: mihinduranasinghe/open-issue-reusable@v1
+              id: issue
+              with:
+                  token: ${{secrets.GITHUB_TOKEN}}
+                  title: title
+                  body: body
+                  assignees: |
+                      mihinduranasinghe
+
+            #---------------------------------------
+
             - name: Custom docker action greeting
               uses: ./.github/actions/hello-docker/
               id: hellodocker
