@@ -32,7 +32,7 @@ jobs:
 
             - name: Open Github Issue Automate
               uses: mihinduranasinghe/open-issue-reusable@v1
-              id: issue
+              id: issue-from-marketplace
               with:
                   token: ${{secrets.GITHUB_TOKEN}}
                   title: title
