@@ -18,7 +18,7 @@ jobs:
 
             #---------------------------------------
 
-            - name: issues creating/opening
+            - name: issues creating/opening private action
               uses: ./.github/actions/issue/
               id: issue
               with:
@@ -30,7 +30,7 @@ jobs:
 
             # consuming marketplace action which i published to open issue
 
-            - name: Open Github Issue Automate
+            - name: Open Github Issue Automate with published actions
               uses: mihinduranasinghe/open-issue-reusable@v1
               id: issue-from-marketplace
               with:
